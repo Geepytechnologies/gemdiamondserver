@@ -13,6 +13,10 @@ const userRoute = require('./routes/users')
 
 dotenv.config();
 
+app.use((req,res,next)=>{
+  res.header("Access-Control-Allow-Credentials", true)
+  next();
+})
 app.use(cors({origin: process.env.DOMAIN, credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
