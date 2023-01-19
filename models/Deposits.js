@@ -17,7 +17,15 @@ const DepositSchema = new mongoose.Schema({
    currency: {
     type: String,
     default: "Naira"
-   }
+   },
+   initialized: {
+    type: Boolean,
+    default: true
+ },
+ completed: {
+    type: Boolean,
+    default: false
+ }
 },{timestamps: true})
 
 module.exports = mongoose.model("deposits", DepositSchema);
