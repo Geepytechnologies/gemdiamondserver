@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[944],{3624:function(n,u,_){(window.__NEXT_P=window.__NEXT_P||[]).push(["/fund",function(){return _(7417)}])},7417:function(n,u,_){"use strict";_.r(u);var t=_(5893);_(7294);let e=n=>(0,t.jsx)("div",{children:"Fund"});u.default=e}},function(n){n.O(0,[774,888,179],function(){return n(n.s=3624)}),_N_E=n.O()}]);
