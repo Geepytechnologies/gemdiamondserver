@@ -4,10 +4,12 @@ const User = require("../models/User.js");
 
 const update = async (req,res,next)=>{
     if(req.params.id === req.user.id){
-        const amount = req.body.bonus;
+        const amount1 = req.body.referralbonus1;
+        const amount2 = req.body.referralbonus2;
+        const amount3 = req.body.referralbonus3;
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
-          $inc: {referralbonus: amount},
+          $inc: {referralbonus1: amount1, referralbonus2: amount2, referralbonus3: amount3},
           $push: {
             referral1: req.user.referral1,
             referral2: req.user.referral2,
