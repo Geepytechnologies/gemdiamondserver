@@ -44,5 +44,22 @@ const signin = async (req, res, next) => {
   }
 }
 
-module.exports = {signup, signin}
+const changepassword = async (req,res,next)=>{
+  try{
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) return next(createError(404, "User not found"));
+    const isMatched = bcrypt.compareSync(req.body.oldpassword, user.password);
+    if (!isMatched) return next(createError(400, "Old password is incorrect"));
+    const salt = bcrypt.genSaltSync(10);
+    const hashedpassword = bcrypt.hashSync(req.body.newpassword, salt);
+    const updateduser = await User.findByIdAndUpdate(req.body.userid,{
+        password: hashedpassword
+    })
+    res.status(201).json('successful')
+  }catch(err){
+
+  }
+}
+
+module.exports = {signup, signin, changepassword}
 

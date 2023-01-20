@@ -4,11 +4,18 @@ const User = require("../models/User.js");
 
 const update = async (req,res,next)=>{
     if(req.params.id === req.user.id){
+        const amount = req.body.bonus;
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+          $inc: {referralbonus: amount},
+          $push: {
+            referral1: req.user.referral1,
+            referral2: req.user.referral2,
+            referral3: req.user.referral3,
+        },
           $set: req.body,
         },{new: true});
-        res.status(200).json(updatedUser);
+        res.status(200);
       }catch(err){
         next(err);
       }
@@ -16,10 +23,20 @@ const update = async (req,res,next)=>{
         return next(createError(403, "Unauthorized"))
     }
 }
-const getUser = async (req,res,next)=>{
+const getUserById = async (req,res,next)=>{
    try{
       const user = await User.findById(req.params.id);
-      res.status(200).json(user);
+      const { password, ...others } = user._doc;
+      res.status(200).json(others);
+   }catch(err){
+    next(err);
+   }
+}
+const getUserByProp = async (req,res,next)=>{
+   try{
+      const user = await User.findOne({referralid: req.body.refid});
+      const { password, ...others } = user._doc;
+      res.status(200).json(others);
    }catch(err){
     next(err);
    }
@@ -47,4 +64,4 @@ const deleteUser = async (req,res,next)=>{
       }
 }
 
-module.exports = {update, getUser, getAllUsers, deleteUser}
+module.exports = {update, getUserById, getAllUsers,getUserByProp, deleteUser}

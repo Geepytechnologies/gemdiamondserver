@@ -3,15 +3,19 @@ const mongoose = require('mongoose');
 
 const PackageSchema = new mongoose.Schema({
    price: {
-    type: String,
+    type: Number,
     required: true
    },
    dailyIncome: {
-    type: String,
+    type: Number,
     required: true
    },
    totalIncome: {
-    type: String,
+    type: Number,
+   },
+   index:{
+    type: Number,
+    required: true
    },
    limit: {
     type: String

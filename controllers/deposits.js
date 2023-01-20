@@ -29,7 +29,7 @@ const completedeposit = async (req,res, next) =>{
            const response = await Deposits.findByIdAndUpdate(req.params.id,{
             $set: req.body,
           },{new: true});
-          res.status(200).json(updateduser);
+          res.status(200).json("user updated");
         }catch(err){
             next(err);
         }

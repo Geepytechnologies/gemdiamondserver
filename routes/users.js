@@ -1,5 +1,5 @@
 const express = require("express");
-const { update, deleteUser, getUser, getAllUsers } = require("../controllers/users.js");
+const { update, deleteUser, getUserById,getUserByProp, getAllUsers } = require("../controllers/users.js");
 const verifyToken = require('../verifytoken');
 
 
@@ -12,7 +12,9 @@ router.put("/:id",verifyToken, update)
 router.delete("/:id", verifyToken, deleteUser)
 
 //get a user
-router.get("/find/:id", getUser)
+router.get("/find/:id", getUserById)
+
+router.post("/find/one", getUserByProp)
 
 
 //get all users

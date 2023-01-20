@@ -34,15 +34,22 @@ const UserSchema = new mongoose.Schema({
         default: []
     },
     referrer1: {
-        type: String
+        type: String,
+        default: ""
     },
     referrer2: {
-         type: String
+         type: String,
+         default: ""
     },
     referrer3: {
-         type: String
+         type: String,
+         default: ""
     },
     balance: {
+        type: Number,
+        default: 0,
+    },
+    referralbonus: {
         type: Number,
         default: 0,
     },

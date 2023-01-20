@@ -9,7 +9,8 @@ const addPackage = async (req,res,next) =>{
         price: req.body.price,
         dailyIncome: req.body.dailyIncome, 
         totalIncome: req.body.totalIncome,
-        limit: req.body.limit
+        limit: req.body.limit,
+        index: req.body.index
     });
     const userid = req.user.id;
     const checkuser = await User.findById(userid);
@@ -30,6 +31,21 @@ const addPackage = async (req,res,next) =>{
 const getpackage = async(req, res, next) =>{
     try{
        const package = await Packages.findById(req.params.id);
+       if(package){
+        res.json(package).status(200);
+       }
+       else{
+        next(createError(404, "Package not found"));
+       }
+    }catch(err){
+        next(err);
+    }
+}
+
+//Get a package
+const getpackagebyindex = async(req, res, next) =>{
+    try{
+       const package = await Packages.find({index: req.params.id});
        if(package){
         res.json(package).status(200);
        }
@@ -85,4 +101,4 @@ const deletepackage = async(req,res,next) =>{
     }
 }
 
-module.exports = {addPackage, getpackage, updatepackage, getallpackages, deletepackage}
+module.exports = {addPackage, getpackage, updatepackage, getallpackages, deletepackage, getpackagebyindex}
