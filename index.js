@@ -14,10 +14,10 @@ const userRoute = require('./routes/users')
 dotenv.config();
 
 app.use(express.json());
-app.use(cors({origin: "https://gemukdiamond.com"}));
+app.use(cors({origin: process.env.DOMAIN, credentials:true}));
 app.use((req,res,next)=>{
   res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Origin", "https://gemukdiamond.com");
+  res.header("Access-Control-Allow-Origin", process.env.DOMAIN);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   next();
 })
@@ -49,7 +49,7 @@ app.get('/api/check', (req,res)=>{
   res.json("working")
 })
 const connect = ()=>{
-  // mongoose.set("strictQuery", false);
+  mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGODB_URI)
   .then(()=>{
     console.log("MongoDB is connected")
