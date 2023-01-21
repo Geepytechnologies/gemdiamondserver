@@ -49,7 +49,7 @@ app.get('/api/check', (req,res)=>{
   res.json("working")
 })
 const connect = ()=>{
-  mongoose.set("strictQuery", false);
+  // mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGODB_URI)
   .then(()=>{
     console.log("MongoDB is connected")
