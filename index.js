@@ -14,7 +14,7 @@ const userRoute = require('./routes/users')
 dotenv.config();
 
 app.use(express.json());
-app.use(cors({origin: "https://gemukdiamond.com",credentials: true}));
+app.use(cors({origin: "https://gemukdiamond.com", credentials: true}));
 app.use((req,res,next)=>{
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Origin", "https://gemukdiamond.com");
@@ -44,6 +44,9 @@ app.use((err, req, res, next) => {
 })
 app.get('/', (req,res)=>{
   res.json("The backend server is up and running")
+})
+app.get('/api/check', (req,res)=>{
+  res.json("working")
 })
 const connect = ()=>{
   mongoose.set("strictQuery", false);
