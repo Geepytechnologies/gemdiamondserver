@@ -34,9 +34,10 @@ const signin = async (req, res, next) => {
     const { password, ...others } = user._doc;
 
     res.cookie('_token', token, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
+      // httpOnly: true,
+      // sameSite: 'none',
+      // secure: true,
+      // domain: 'http://localhost:3000'
       // maxAge: 3600 * 24,
     })
     .status(200).json(others);
@@ -44,7 +45,14 @@ const signin = async (req, res, next) => {
     next(err);
   }
 }
-
+const signout = (req,res)=>{
+  res.clearCookie("_token",{
+    // httpOnly: true,
+    // sameSite: 'none',
+    // secure: true,
+    // maxAge: 3600 * 24,
+  }).status(200).json('user logged out')
+}
 const changepassword = async (req,res,next)=>{
   try{
     const user = await User.findOne({ email: req.body.email })
@@ -62,5 +70,5 @@ const changepassword = async (req,res,next)=>{
   }
 }
 
-module.exports = {signup, signin, changepassword}
+module.exports = {signup, signin,signout, changepassword}
 
