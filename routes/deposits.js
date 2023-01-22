@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const {initiatedeposit, completedeposit, getdeposit, getalldeposits} = require('../controllers/deposits');
-const verifyToken = require('../verifytoken');
+const {verifyToken} = require('../verifytoken');
 
 router.post("/", verifyToken, initiatedeposit);
 router.put("/:id", verifyToken, completedeposit);

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const {addPackage, getpackage, updatepackage, getallpackages, deletepackage, getpackagebyindex} = require('../controllers/packages');
-const verifyToken = require('../verifytoken');
+const {verifyToken} = require('../verifytoken');
 
 router.post("/", verifyToken, addPackage);
 router.get("/find/:id", getpackage);

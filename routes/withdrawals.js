@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const {initiatewithdrawal, completewithdrawal, getwithdrawal, getallwithdrawals} = require('../controllers/withdrawals');
-const verifyToken = require('../verifytoken');
+const {verifyToken} = require('../verifytoken');
 
 router.post("/", verifyToken, initiatewithdrawal);
 router.put("/:id", verifyToken, completewithdrawal);

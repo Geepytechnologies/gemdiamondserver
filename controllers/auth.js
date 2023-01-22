@@ -30,17 +30,17 @@ const signin = async (req, res, next) => {
     const isMatched = bcrypt.compareSync(req.body.password, user.password);
     if (!isMatched) return next(createError(400, "wrong credentials"));
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET)
+    const accessToken = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.SECRET)
     const { password, ...others } = user._doc;
 
-    res.cookie('_token', token, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      // domain: 'http://localhost:3000'
-      // maxAge: 3600 * 24,
-    })
-    .status(200).json(others);
+    // res.cookie('_token', token, {
+    //   httpOnly: true,
+    //   sameSite: 'none',
+    //   secure: true,
+    //   // domain: 'http://localhost:3000'
+    //   // maxAge: 3600 * 24,
+    // })
+    res.status(200).json({others, accessToken});
   } catch (err) {
     next(err);
   }
@@ -70,5 +70,5 @@ const changepassword = async (req,res,next)=>{
   }
 }
 
-module.exports = {signup, signin,signout, changepassword}
+module.exports = {signup, signin, signout, changepassword}
 

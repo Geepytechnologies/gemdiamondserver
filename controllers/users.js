@@ -15,9 +15,9 @@ const update = async (req,res,next)=>{
             referral2: req.user.referral2,
             referral3: req.user.referral3,
         },
-          $set: req.body,
+          // $set: req.body,
         },{new: true});
-        res.status(200);
+        res.status(200).json(updatedUser);
       }catch(err){
         next(err);
       }
