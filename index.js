@@ -13,7 +13,6 @@ const withdrawalsRoute = require('./routes/withdrawals')
 const depositsRoute = require('./routes/deposits')
 const purchasesRoute = require('./routes/purchases')
 const userRoute = require('./routes/users');
-const { GridFsStorage } = require('multer-gridfs-storage/lib/gridfs');
 
 dotenv.config();
 
