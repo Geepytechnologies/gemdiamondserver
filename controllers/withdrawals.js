@@ -46,6 +46,16 @@ const getwithdrawal = async (req,res,next)=>{
      next(err);
     }
  }
+
+//get a withdrawal by user
+const getwithdrawalsbyuser = async (req,res,next)=>{
+    try{
+       const withdrawal = await Withdrawals.find({userid: req.params.id});
+       res.status(200).json(withdrawal);
+    }catch(err){
+     next(err);
+    }
+ }
 //get all deposits
 const getallwithdrawals = async (req,res,next)=>{
     try{
@@ -55,4 +65,4 @@ const getallwithdrawals = async (req,res,next)=>{
      next(err);
     }
  }
-module.exports = {initiatewithdrawal, completewithdrawal, getwithdrawal, getallwithdrawals}
+module.exports = {initiatewithdrawal, getwithdrawalsbyuser, completewithdrawal, getwithdrawal, getallwithdrawals}

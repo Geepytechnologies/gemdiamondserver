@@ -46,6 +46,15 @@ const getdeposit = async (req,res,next)=>{
      next(err);
     }
  }
+//get a deposit by a user
+const getuserdeposits = async (req,res,next)=>{
+    try{
+        const deposit = await Deposits.find({userid: req.params.id});
+        res.status(200).json(deposit);
+    }catch(err){
+        next(err);
+    }
+}
 //get all deposits
 const getalldeposits = async (req,res,next)=>{
     try{
@@ -55,4 +64,4 @@ const getalldeposits = async (req,res,next)=>{
      next(err);
     }
  }
-module.exports = {initiatedeposit, completedeposit, getdeposit, getalldeposits}
+module.exports = {initiatedeposit,getuserdeposits, completedeposit, getdeposit, getalldeposits}

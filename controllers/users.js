@@ -4,6 +4,22 @@ const User = require("../models/User.js");
 
 const update = async (req,res,next)=>{
     if(req.params.id === req.user.id){
+       const amount = req.body.amount;
+      try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+          $inc: {balance: amount},
+          $set: req.body,
+        },{new: true});
+        res.status(200).json(updatedUser);
+      }catch(err){
+        next(err);
+      }
+    }else{
+        return next(createError(403, "Unauthorized"))
+    }
+}
+const updatereferral = async (req,res,next)=>{
+    if(req.params.id === req.user.id){
         const amount1 = req.body.referralbonus1;
         const amount2 = req.body.referralbonus2;
         const amount3 = req.body.referralbonus3;
@@ -66,4 +82,4 @@ const deleteUser = async (req,res,next)=>{
       }
 }
 
-module.exports = {update, getUserById, getAllUsers,getUserByProp, deleteUser}
+module.exports = {update,updatereferral, getUserById, getAllUsers,getUserByProp, deleteUser}

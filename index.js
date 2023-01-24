@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const multer = require('multer')
+const GridFsStorage = require('multer-gridfs-storage')
 const path = require('path');
 const dotenv = require('dotenv')
 const cors = require('cors')
@@ -9,7 +11,9 @@ const authRoute = require('./routes/auth')
 const packagesRoute = require('./routes/packages')
 const withdrawalsRoute = require('./routes/withdrawals')
 const depositsRoute = require('./routes/deposits')
-const userRoute = require('./routes/users')
+const purchasesRoute = require('./routes/purchases')
+const userRoute = require('./routes/users');
+const { GridFsStorage } = require('multer-gridfs-storage/lib/gridfs');
 
 dotenv.config();
 
@@ -31,6 +35,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/packages", packagesRoute);
 app.use("/api/withdrawals", withdrawalsRoute);
 app.use("/api/deposits", depositsRoute);
+app.use("/api/purchases", purchasesRoute);
 app.use("/api/users", userRoute);
 
 app.use((err, req, res, next) => {
@@ -63,5 +68,22 @@ app.listen(port,()=>{
   connect();
   console.log("Backend server is running");
 })
+
+const storage = new GridFsStorage({
+  url: process.env.MONGODB_URI,
+  options: {useNewUrlParser: true},
+  file: (req,file) => {
+    return{
+      filename: file.originalname,
+      bucketname: "images"
+    }
+  }
+})
+
+const upload = multer({storage})
+
+app.post('/api/upload', upload.single('image')), (req,res) =>{
+    res.send('image uploaded')
+}
 
 module.exports = app;

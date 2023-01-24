@@ -65,8 +65,12 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    lastincometime: {
+        type: Date,
+    },
     currentpackage: {
         type: String,
+        default: ""
     }
 },{timestamps: true});
 

@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 
-const DepositSchema = new mongoose.Schema({
+const PurchasesSchema = new mongoose.Schema({
    userid: {
     type: String,
     required: true
+   },
+   packageid: {
+     type: String,
+     required: true
    },
    amount: {
     type: Number,
@@ -24,4 +28,4 @@ const DepositSchema = new mongoose.Schema({
  }
 },{timestamps: true})
 
-module.exports = mongoose.model("deposits", DepositSchema);
+module.exports = mongoose.model("purchases", PurchasesSchema);
