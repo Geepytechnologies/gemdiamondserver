@@ -1,6 +1,18 @@
 const Deposits = require('../models/Deposits');
 const User = require('../models/User');
 const {createError} = require('../error');
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: './public/uploads',
+    filename: function(req, file, cb){
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  const upload = multer({
+    storage: storage
+  }).single('receipt')
 
 //initiate a deposit
 const initiatedeposit = async (req,res,next) => {

@@ -21,6 +21,15 @@ const WithdrawalSchema = new mongoose.Schema({
    completed: {
       type: Boolean,
       default: false
+   },
+   accno:{
+      type: String,
+   },
+   accname:{
+      type: String
+   },
+   accbank:{
+      type: String
    }
 },{timestamps: true})
 

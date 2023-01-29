@@ -15,7 +15,7 @@ const signup = async (req, res, next) => {
       const hashedpassword = bcrypt.hashSync(req.body.password, salt);
       const user = new User({ ...req.body, password: hashedpassword });
       await user.save();
-      res.status(201).json("User has been Created");
+      res.status(201).json(user);
     }
   } catch (err) {
     next(err);
@@ -66,7 +66,7 @@ const changepassword = async (req,res,next)=>{
     })
     res.status(201).json('successful')
   }catch(err){
-
+     next(err);
   }
 }
 

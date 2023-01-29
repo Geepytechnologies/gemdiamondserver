@@ -69,8 +69,21 @@ const UserSchema = new mongoose.Schema({
         type: Date,
     },
     currentpackage: {
-        type: String,
-        default: ""
+        type: [String],
+    },
+    currentspecialpackage: [
+        {
+          id: {
+            type: String,
+          },
+          earned: {
+            type: Boolean,
+          }
+        }
+    ],
+    currentpackageusage: {
+        type: Number,
+        default: 0
     }
 },{timestamps: true});
 

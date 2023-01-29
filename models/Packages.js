@@ -8,7 +8,6 @@ const PackageSchema = new mongoose.Schema({
    },
    dailyIncome: {
     type: Number,
-    required: true
    },
    totalIncome: {
     type: Number,
@@ -17,8 +16,18 @@ const PackageSchema = new mongoose.Schema({
     type: Number,
     required: true
    },
+   special:{
+      type: Boolean,
+   },
    limit: {
     type: String
+   },
+   period: {
+      type: String
+   },
+   earned: {
+      type: Boolean,
+      default: false
    }
 },{timestamps: true})
 

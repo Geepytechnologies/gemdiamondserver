@@ -18,9 +18,9 @@ const initiatepurchase = async (req,res,next) => {
 //complete a purchase
 const completepurchase = async (req,res, next) =>{
     const userid = req.user.id;
+    const amount = req.body.amount;
     const checkuser = await User.findById(userid);
     const user = req.body.id;
-    if(checkuser.isAdmin){
         try{
            const updateduser = await User.findByIdAndUpdate(user,{
             $inc: {balance: req.body.amount},
@@ -33,9 +33,6 @@ const completepurchase = async (req,res, next) =>{
         }catch(err){
             next(err);
         }
-    }else{
-       next(createError(401, "You are not an Admin"))
-    }
 }
 //get purchase
 const getpurchase = async (req,res,next)=>{

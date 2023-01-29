@@ -15,6 +15,17 @@ const userRoute = require('./routes/users');
 
 dotenv.config();
 
+const storage = multer.diskStorage({
+  destination: './public/uploads',
+  filename: function(req, file, cb){
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage
+}).single('receipt')
+
 app.use(express.json());
 app.use(cors({origin: process.env.DOMAIN, credentials:true}));
 app.use((req,res,next)=>{
@@ -45,6 +56,18 @@ app.use((err, req, res, next) => {
       message
   })
 })
+app.post('/upload', (req, res) => {
+   upload(req, res, (err) => {
+    if(err){
+      res.json(err)
+    }else{
+      res.status(200).json("file uploaded")
+      console.log(req.file)
+    }
+   });
+})
+
+
 app.get('/', (req,res)=>{
   res.json("The backend server is up and running")
 })

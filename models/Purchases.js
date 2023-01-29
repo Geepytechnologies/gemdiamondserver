@@ -10,6 +10,9 @@ const PurchasesSchema = new mongoose.Schema({
      type: String,
      required: true
    },
+   special: {
+      type: String,
+   },
    amount: {
     type: Number,
     required: true

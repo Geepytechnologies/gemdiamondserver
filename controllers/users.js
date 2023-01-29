@@ -3,11 +3,14 @@ const User = require("../models/User.js");
 
 
 const update = async (req,res,next)=>{
-    if(req.params.id === req.user.id){
+    if(req.params.id === req.user.id || req.user.isAdmin === true){
        const amount = req.body.amount;
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
           $inc: {balance: amount},
+            $push: {
+              currentpackage: req.body.currentpackage,
+        },
           $set: req.body,
         },{new: true});
         res.status(200).json(updatedUser);
@@ -18,7 +21,51 @@ const update = async (req,res,next)=>{
         return next(createError(403, "Unauthorized"))
     }
 }
+const updateuserforpurchase = async (req,res,next)=>{
+    if(req.params.id === req.user.id || req.user.isAdmin === true){
+       const amount = req.body.amount;
+      try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+          $inc: {balance: amount},
+            $push: {
+              currentpackage: req.body.currentpackage,
+              currentspecialpackage: [
+                {
+                  id: req.body.id,
+                  earned: req.body.earned
+                }
+              ]
+        },
+          // $set: req.body,
+        },{new: true});
+        res.status(200).json(updatedUser);
+      }catch(err){
+        next(err);
+      }
+    }else{
+        return next(createError(403, "Unauthorized"))
+    }
+}
 const updatereferral = async (req,res,next)=>{
+    // if(req.params.id === req.user.id){
+      const ref1 = req.body.referral1;
+      const ref2 = req.body.referral2;
+      const ref3 = req.body.referral3;
+      try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+            $push: {
+            referral1: ref1,
+            referral2: ref2,
+            referral3: ref3,
+        },
+          // $set: req.body,
+        },{new: true});
+        res.status(200).json(updatedUser);
+      }catch(err){
+        next(err);
+      }
+}
+const updatereferralbonus = async (req,res,next)=>{
     if(req.params.id === req.user.id){
         const amount1 = req.body.referralbonus1;
         const amount2 = req.body.referralbonus2;
@@ -26,11 +73,11 @@ const updatereferral = async (req,res,next)=>{
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
           $inc: {referralbonus1: amount1, referralbonus2: amount2, referralbonus3: amount3},
-          $push: {
-            referral1: req.user.referral1,
-            referral2: req.user.referral2,
-            referral3: req.user.referral3,
-        },
+        //   $push: {
+        //     referral1: req.user.referral1,
+        //     referral2: req.user.referral2,
+        //     referral3: req.user.referral3,
+        // },
           // $set: req.body,
         },{new: true});
         res.status(200).json(updatedUser);
@@ -82,4 +129,4 @@ const deleteUser = async (req,res,next)=>{
       }
 }
 
-module.exports = {update,updatereferral, getUserById, getAllUsers,getUserByProp, deleteUser}
+module.exports = {update,updatereferral,updatereferralbonus, getUserById, getAllUsers,getUserByProp, updateuserforpurchase, deleteUser}

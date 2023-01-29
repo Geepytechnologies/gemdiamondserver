@@ -10,9 +10,9 @@ router.get("/find/:id", getpurchase)
 
 
 //get all deposits
-router.get("/find", getuserpurchases)
+router.get("/find/user/:id", getuserpurchases)
 
 //get all deposits
-router.get("/find/user/:id", getallpurchases)
+router.get("/find", getallpurchases)
 
 module.exports = router;
