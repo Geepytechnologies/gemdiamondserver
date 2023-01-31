@@ -22,10 +22,10 @@ const completepurchase = async (req,res, next) =>{
     const checkuser = await User.findById(userid);
     const user = req.body.id;
         try{
-           const updateduser = await User.findByIdAndUpdate(user,{
-            $inc: {balance: req.body.amount},
-            $set: req.body,
-          },{new: true});
+        //    const updateduser = await User.findByIdAndUpdate(user,{
+        //     $inc: {balance: req.body.amount},
+        //     $set: req.body,
+        //   },{new: true});
            const response = await Purchases.findByIdAndUpdate(req.params.id,{
             $set: req.body,
           },{new: true});

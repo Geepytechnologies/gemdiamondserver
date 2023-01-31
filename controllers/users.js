@@ -47,12 +47,12 @@ const updateforspecialpackage = async (req,res,next)=>{
     }
 }
 const updateuserforpurchase = async (req,res,next)=>{
-    if(req.params.id === req.user.id || req.user.isAdmin === true){
+    if(req.params.id === req.user.id){
        const amount = req.body.amount;
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
-          $inc: {balance: amount},
-          $inc: {"currentpackage.usage": req.body.usage},
+          $inc: {balance: amount, "currentpackage.usage": req.body.usage},
+          // $inc: {"currentpackage.usage": req.body.usage},
           $set: {"currentpackage.packid": req.body.packid},
           // $set: req.body,
         },
