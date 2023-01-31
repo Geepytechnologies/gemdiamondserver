@@ -22,16 +22,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
     },
     referral1: {
-        type: [String],
-        default: []
+        type: [],
     },
     referral2: {
-        type: [String],
-        default: []
+        type: [],
     },
     referral3: {
-        type: [String],
-        default: []
+        type: [],
     },
     referrer1: {
         type: String,
