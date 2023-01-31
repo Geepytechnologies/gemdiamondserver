@@ -21,23 +21,42 @@ const update = async (req,res,next)=>{
         return next(createError(403, "Unauthorized"))
     }
 }
+const updateforspecialpackage = async (req,res,next)=>{
+    if(req.params.id === req.user.id || req.user.isAdmin === true){
+       const amount = req.body.amount;
+      try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+          $inc: {balance: amount},
+          $push: {
+            currentspecialpackage: [
+              {
+                id: req.body.id,
+                earned: req.body.earned,
+                index: req.body.index
+              }
+            ]
+          },
+          // $set: req.body,
+        },{new: true});
+        res.status(200).json(updatedUser);
+      }catch(err){
+        next(err);
+      }
+    }else{
+        return next(createError(403, "Unauthorized"))
+    }
+}
 const updateuserforpurchase = async (req,res,next)=>{
     if(req.params.id === req.user.id || req.user.isAdmin === true){
        const amount = req.body.amount;
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
           $inc: {balance: amount},
-            $push: {
-              currentpackage: req.body.currentpackage,
-              currentspecialpackage: [
-                {
-                  id: req.body.id,
-                  earned: req.body.earned
-                }
-              ]
-        },
+          $inc: {"currentpackage.usage": req.body.usage},
+          $set: {"currentpackage.packid": req.body.packid},
           // $set: req.body,
-        },{new: true});
+        },
+        {new: true});
         res.status(200).json(updatedUser);
       }catch(err){
         next(err);
@@ -91,8 +110,8 @@ const updatereferralbonus = async (req,res,next)=>{
 const getUserById = async (req,res,next)=>{
    try{
       const user = await User.findById(req.params.id);
-      const { password, ...others } = user._doc;
-      res.status(200).json(others);
+      // const { password, ...others } = user;
+      res.status(200).json(user);
    }catch(err){
     next(err);
    }
@@ -100,8 +119,8 @@ const getUserById = async (req,res,next)=>{
 const getUserByProp = async (req,res,next)=>{
    try{
       const user = await User.findOne({referralid: req.body.refid});
-      const { password, ...others } = user._doc;
-      res.status(200).json(others);
+      // const { password, ...others } = user._doc;
+      res.status(200).json(user);
    }catch(err){
     next(err);
    }
@@ -129,4 +148,4 @@ const deleteUser = async (req,res,next)=>{
       }
 }
 
-module.exports = {update,updatereferral,updatereferralbonus, getUserById, getAllUsers,getUserByProp, updateuserforpurchase, deleteUser}
+module.exports = {update,updatereferral,updatereferralbonus, getUserById, getAllUsers,getUserByProp, updateuserforpurchase, deleteUser,updateforspecialpackage}

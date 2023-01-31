@@ -69,7 +69,13 @@ const UserSchema = new mongoose.Schema({
         type: Date,
     },
     currentpackage: {
-        type: [String],
+        packid: {
+            type: String,
+        },
+        usage: {
+            type: Number,
+            default: 0
+        }
     },
     currentspecialpackage: [
         {
@@ -78,6 +84,9 @@ const UserSchema = new mongoose.Schema({
           },
           earned: {
             type: Boolean,
+          },
+          index: {
+            type: Number
           }
         }
     ],

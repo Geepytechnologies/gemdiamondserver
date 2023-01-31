@@ -1,5 +1,5 @@
 const express = require("express");
-const { update, deleteUser, getUserById,getUserByProp, getAllUsers, updatereferral, updatereferralbonus, updateuserforpurchase } = require("../controllers/users.js");
+const { update,updateforspecialpackage, deleteUser, getUserById,getUserByProp, getAllUsers, updatereferral, updatereferralbonus, updateuserforpurchase } = require("../controllers/users.js");
 const {verifyToken} = require('../verifytoken');
 
 
@@ -10,6 +10,9 @@ router.put("/:id",verifyToken, update)
 
 //update user for purchase
 router.put("/purchase/:id",verifyToken, updateuserforpurchase)
+
+//update user for purchase
+router.put("/purchase/special/:id",verifyToken, updateforspecialpackage)
 
 //update user referraldata
 router.put("referral/:id", verifyToken, updatereferralbonus)
