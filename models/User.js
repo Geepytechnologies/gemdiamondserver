@@ -84,6 +84,18 @@ const UserSchema = new mongoose.Schema({
           },
           index: {
             type: Number
+          },
+          price: {
+            type: Number
+          },
+          period: {
+            type: Number
+          },
+          totalprice: {
+            type: Number
+          },
+          datepurchased: {
+            type: Date
           }
         }
     ],

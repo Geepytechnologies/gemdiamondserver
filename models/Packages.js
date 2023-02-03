@@ -23,7 +23,7 @@ const PackageSchema = new mongoose.Schema({
     type: String
    },
    period: {
-      type: String
+      type: Number
    },
    earned: {
       type: Boolean,
