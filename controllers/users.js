@@ -8,9 +8,9 @@ const update = async (req,res,next)=>{
       try{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
           $inc: {balance: amount},
-            $push: {
+          $push: {
               currentpackage: req.body.currentpackage,
-        },
+          },
           $set: req.body,
         },{new: true});
         res.status(200).json(updatedUser);
@@ -56,7 +56,7 @@ const updatespecialearned = async (req,res,next)=>{
     const updatedUser = await User.findByIdAndUpdate(req.params.id);
     updatedUser.currentspecialpackage.forEach((item)=>{
       const purchasedate = item.datepurchased;
-      const periodinmilliseconds = 2 * 60 * 60 * 1000 ;
+      const periodinmilliseconds = item.period * 60 * 60 * 1000 ;
     const lastupdatedtime = new Date(purchasedate).getTime();
     const now = new Date().getTime();
     const timediff = now - lastupdatedtime;
@@ -82,7 +82,7 @@ const updateuserforpurchase = async (req,res,next)=>{
         const updatedUser = await User.findByIdAndUpdate(req.params.id,{
           $inc: {balance: amount, "currentpackage.usage": req.body.usage},
           // $inc: {"currentpackage.usage": req.body.usage},
-          $set: {"currentpackage.packid": req.body.packid},
+          $set: {"currentpackage.packid": req.body.packid, lastincometime: req.body.lastincometime},
           // $set: req.body,
         },
         {new: true});
