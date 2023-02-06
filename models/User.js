@@ -1,112 +1,117 @@
 const mongoose = require("mongoose");
 
-
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     firstname: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     lastname: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     phone: {
-        type: String,
+      type: String,
+    },
+    verified: {
+      type: Boolean,
     },
     password: {
-        type: String,
+      type: String,
     },
     referralid: {
-        type: String,
+      type: String,
     },
     referral1: {
-        type: [],
+      type: [],
     },
     referral2: {
-        type: [],
+      type: [],
     },
     referral3: {
-        type: [],
+      type: [],
     },
     referrer1: {
-        type: String,
-        default: ""
+      type: String,
+      default: "",
     },
     referrer2: {
-         type: String,
-         default: ""
+      type: String,
+      default: "",
     },
     referrer3: {
-         type: String,
-         default: ""
+      type: String,
+      default: "",
     },
     balance: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     referralbonus1: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     referralbonus2: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     referralbonus3: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     isAdmin: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     lastincometime: {
-        type: Date,
+      type: Date,
     },
     currentpackage: {
-        packid: {
-            type: String,
-        },
-        usage: {
-            type: Number,
-            default: 0
-        }
+      packid: {
+        type: String,
+      },
+      usage: {
+        type: Number,
+        default: 0,
+      },
     },
     currentspecialpackage: [
-        {
-          id: {
-            type: String,
-          },
-          earned: {
-            type: Boolean,
-          },
-          index: {
-            type: Number
-          },
-          price: {
-            type: Number
-          },
-          period: {
-            type: Number
-          },
-          totalprice: {
-            type: Number
-          },
-          datepurchased: {
-            type: Date
-          }
-        }
+      {
+        id: {
+          type: String,
+        },
+        earned: {
+          type: Boolean,
+        },
+        index: {
+          type: Number,
+        },
+        price: {
+          type: Number,
+        },
+        period: {
+          type: Number,
+        },
+        totalprice: {
+          type: Number,
+        },
+        datepurchased: {
+          type: Date,
+        },
+      },
     ],
     currentpackageusage: {
-        type: Number,
-        default: 0
-    }
-},{timestamps: true});
+      type: Number,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
 // export default mongoose.model("users", UserSchema);
 module.exports = mongoose.model("users", UserSchema);
