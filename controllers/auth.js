@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { createError } = require("../error.js");
 const jwt = require("jsonwebtoken");
 const Forgotpassword = require("../models/Forgotpassword");
-const userverification = require("../models/userverification");
+const Userverification = require("../models/Userverification");
 const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require("uuid");
 
