@@ -102,22 +102,6 @@ const forgotpassword = async (req, res, next) => {
     next(err);
   }
 };
-//nodemailer
-let transporter = nodemailer.createTransport({
-  service: "gmail",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.AUTH_EMAIL,
-    pass: process.env.AUTH_PASS,
-  },
-});
-transporter.verify((error, success) => {
-  if (error) {
-    console.log({ emailerror: error });
-  } else {
-    console.log("Ready for messages");
-    console.log(success);
-  }
-});
+
+
 module.exports = { signup, signin, signout, changepassword, forgotpassword };
